@@ -1,6 +1,6 @@
 APP_NAME = myApp
 BUILD_DIR = ./bin
-C_FILES = ./src/*.cpp
+C_FILES = ./src/*.cpp ./src/*.c
 
 APP_INCLUDES:= -I./src/vendors/GLFW -I./src/vendors/glad -I./src/vendors/KHR -framework Cocoa -framework OpenGL -framework IOKit
 APP_LINKERS:= -L./src/vendors/GLFW/lib -lglfw3
