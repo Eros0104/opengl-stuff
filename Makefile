@@ -9,7 +9,7 @@ all: build run
 
 build:
 	mkdir -p $(BUILD_DIR)
-	clang -o $(BUILD_DIR)/$(APP_NAME) $(C_FILES) $(APP_INCLUDES) $(APP_LINKERS)
+	clang++ -o $(BUILD_DIR)/$(APP_NAME) $(C_FILES) $(APP_INCLUDES) $(APP_LINKERS)
 
 run:
 	./$(BUILD_DIR)/$(APP_NAME)

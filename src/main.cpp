@@ -1,5 +1,5 @@
 
-// #include <iostream>
+#include <iostream>
 #include "vendors/glad/glad.h"
 #include "vendors/GLFW/glfw3.h"
 
@@ -15,7 +15,7 @@ int main(void)
 
     if (window == NULL)
     {
-        // std::cout << "Failed to create GLFW window" << std::endl;
+        std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return -1;
     }
