@@ -2,6 +2,7 @@
 #include <iostream>
 #include "vendors/glad/glad.h"
 #include "vendors/GLFW/glfw3.h"
+#include "vendors/stb/stb_image.h"
 #include "../include/shaderClass.h"
 #include "../include/VAO.h"
 #include "../include/VBO.h"
