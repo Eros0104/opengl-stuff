@@ -1,7 +1,7 @@
 #include "../include/VAO.h"
 
 VAO::VAO() {
-
+  glGenVertexArrays(1, &ID);
 }
 
 void VAO::LinkVBO(VBO VBO, GLuint layout) {
