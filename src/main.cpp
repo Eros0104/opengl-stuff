@@ -9,13 +9,14 @@
 
 // Triangle vertices coordinates
 GLfloat vertices[] = {
-    -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
-    0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
-    0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f, // Upper corner
+    //             Coordinates                   |      Colors        // 
+    -0.5f, -0.5f * float(sqrt(3)) / 3,     0.0f,   0.8f, 0.3f,  0.02f, // Lower left corner
+     0.5f, -0.5f * float(sqrt(3)) / 3,     0.0f,   0.0f, 0.6f,  1.0f, // Lower right corner
+     0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f,   0.0f, 0.6f,  1.0f, // Upper corner
 
-    -0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Inner left
-    0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Inner right
-    0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f // Inner down
+    -0.5f / 2, 0.5f * float(sqrt(3)) / 6,  0.0f,   0.9f, 0.45f, 0.17f, // Inner left
+     0.5f / 2, 0.5f * float(sqrt(3)) / 6,  0.0f,   0.0f, 0.6f,  1.0f, // Inner right
+     0.0f, -0.5f * float(sqrt(3)) / 3,     0.0f,   0.8f, 0.3f,  0.02f, // Inner down
 };
 
 // Index buffer data
@@ -67,10 +68,13 @@ int main()
     VBO VBO1(vertices, sizeof(vertices));
     EBO EBO1(indices, sizeof(indices));
 
-    VAO1.LinkVBO(VBO1, 0);
+    VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
+    VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
     VAO1.Unbind();
     VBO1.Unbind();
     EBO1.Unbind();
+
+    GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
     // Main while loop
     while(!glfwWindowShouldClose(window))
@@ -83,6 +87,9 @@ int main()
 
         // Tell OpenGL which Shader Program we want to use
         shaderProgram.Activate();
+
+        // Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
+        glUniform1f(uniID, 0.3f);
 
         // Bind the VAO so OpenGL knows to use it
         VAO1.Bind();
