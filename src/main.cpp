@@ -6,11 +6,11 @@
 #include "vendors/glm/glm.hpp"
 #include "vendors/glm/gtc/matrix_transform.hpp"
 #include "vendors/glm/gtc/type_ptr.hpp"
-#include "../include/shaderClass.h"
-#include "../include/VAO.h"
-#include "../include/VBO.h"
-#include "../include/EBO.h"
-#include "../include/Texture.h"
+#include "include/shaderClass.h"
+#include "include/VAO.h"
+#include "include/VBO.h"
+#include "include/EBO.h"
+#include "include/Texture.h"
 
 // Triangle vertices coordinates
 GLfloat vertices[] = {

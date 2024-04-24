@@ -1,7 +1,7 @@
 #ifndef VAO_CLASS_H
 #define VAO_CLASS_H
 
-#include "../src/vendors/glad/glad.h"
+#include "../vendors/glad/glad.h"
 #include "VBO.h"
 
 // VAO stands for Vertex Array Object
