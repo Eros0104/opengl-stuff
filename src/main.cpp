@@ -12,13 +12,22 @@
 #include "include/EBO.h"
 #include "include/Texture.h"
 
+const int width = 800;
+const int height = 600;
+
 // Triangle vertices coordinates
 GLfloat vertices[] = {
     //    Coordinates    |       Colors          |  TEXTURES    // 
-    -0.5f, -0.5f, 0.0f,     0.8f, 0.3f,  0.02f,     0.0f, 0.0f, // Lower left corner
-    -0.5f,  0.5f, 0.0f,     0.0f, 0.6f,   1.0f,     0.0f, 2.0f, // Upper left
-     0.5f,  0.5f, 0.0f,     0.0f, 0.6f,   1.0f,     2.0f, 2.0f, // Upper right
-     0.5f, -0.5f, 0.0f,     0.0f, 0.6f,   1.0f,     2.0f, 0.0f, // Lower right corner
+    // FRONT
+    -0.5f, -0.5f,  0.5f,     0.8f, 0.3f,  0.02f,     0.0f, 0.0f, // Lower left corner
+    -0.5f,  0.5f,  0.5f,     0.0f, 0.6f,   1.0f,     0.0f, 2.0f, // Upper left
+     0.5f,  0.5f,  0.5f,     0.0f, 0.6f,   1.0f,     2.0f, 2.0f, // Upper right
+     0.5f, -0.5f,  0.5f,     0.0f, 0.6f,   1.0f,     2.0f, 0.0f, // Lower right corner
+    // BACK
+    -0.5f, -0.5f, -0.5f,     0.8f, 0.3f,  0.02f,     2.0f, 0.0f, // Lower left corner
+    -0.5f,  0.5f, -0.5f,     0.0f, 0.6f,   1.0f,     2.0f, 2.0f, // Upper left
+     0.5f,  0.5f, -0.5f,     0.0f, 0.6f,   1.0f,     0.0f, 2.0f, // Upper right
+     0.5f, -0.5f, -0.5f,     0.0f, 0.6f,   1.0f,     0.0f, 0.0f, // Lower right corner
 
     // -0.5f / 2, 0.5f * float(sqrt(3)) / 6,  0.0f,   0.9f, 0.45f, 0.17f,   0.0f, 0.0f, // Inner left
     //  0.5f / 2, 0.5f * float(sqrt(3)) / 6,  0.0f,   0.0f, 0.6f,   1.0f,   0.0f, 0.0f, // Inner right
@@ -33,9 +42,25 @@ GLfloat vertices[] = {
 //     5, 4, 1 // Upper triangle
 // };
 
-GLuint indices [] = { 
-    0, 2, 1, // upper triangle
-    0, 3, 2, // lower triangle
+GLuint indices[] = {
+    // Front face
+    0, 1, 2,
+    0, 2, 3,
+    // Back face
+    4, 6, 5,
+    4, 7, 6,
+    // Left face
+    4, 5, 1,
+    4, 1, 0,
+    // Right face
+    3, 2, 6,
+    3, 6, 7,
+    // Top face
+    1, 5, 6,
+    1, 6, 2,
+    // Bottom face
+    0, 3, 7,
+    0, 7, 4
 };
 
 int main()
@@ -51,7 +76,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Create a window object
-    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(width, height, "LearnOpenGL", NULL, NULL);
 
     // Check if the window was created successfully
     if (window == NULL)
@@ -68,7 +93,7 @@ int main()
     gladLoadGL();
 
     // Specify the viewport of OpenGL in the Window
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, width, height);
 
     Shader shaderProgram("./src/shaders/default.vert", "./src/shaders/default.frag");
 
@@ -101,6 +126,12 @@ int main()
         GL_UNSIGNED_BYTE
     );
     texture.texUnit(shaderProgram, "tex0", 0);
+
+    float rotation = 0.0f;
+    double prevTime = glfwGetTime();
+
+    glEnable(GL_DEPTH_TEST);
+
     // Main while loop
     while(!glfwWindowShouldClose(window))
     {
@@ -108,10 +139,31 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
         // Clean the back buffer and assign the new color to it
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Tell OpenGL which Shader Program we want to use
         shaderProgram.Activate();
+
+        double currentTime = glfwGetTime();
+        if (currentTime - prevTime >= 1 / 60) {
+            rotation += 0.5f;
+            prevTime = currentTime;
+        }
+
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view = glm::mat4(1.0f);
+        glm::mat4 proj = glm::mat4(1.0f);
+        
+        model = glm::rotate(model, glm::radians(rotation), glm::vec3(1.0f, 1.0f, 1.0f));
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        proj = glm::perspective(glm::radians(45.0f), (float)(width / height), 0.1f, 100.0f);
+
+        int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        int viewLoc = glGetUniformLocation(shaderProgram.ID, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        int projLoc = glGetUniformLocation(shaderProgram.ID, "proj");
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 
         // Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
         glUniform1f(uniID, 0.5f);
@@ -123,7 +175,7 @@ int main()
         VAO1.Bind();
 
         // Draw the triangle using the GL_TRIANGLES primitive
-        glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 
         //Swap the back buffer with the front buffer
         glfwSwapBuffers(window);
