@@ -11,6 +11,7 @@
 #include "include/VBO.h"
 #include "include/EBO.h"
 #include "include/Texture.h"
+#include "include/Camera.h"
 
 const int width = 800;
 const int height = 600;
@@ -127,10 +128,10 @@ int main()
     );
     texture.texUnit(shaderProgram, "tex0", 0);
 
-    float rotation = 0.0f;
-    double prevTime = glfwGetTime();
-
+    // Enables the Depth Buffer
     glEnable(GL_DEPTH_TEST);
+
+    Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 
     // Main while loop
     while(!glfwWindowShouldClose(window))
@@ -144,26 +145,8 @@ int main()
         // Tell OpenGL which Shader Program we want to use
         shaderProgram.Activate();
 
-        double currentTime = glfwGetTime();
-        if (currentTime - prevTime >= 1 / 60) {
-            rotation += 0.5f;
-            prevTime = currentTime;
-        }
-
-        glm::mat4 model = glm::mat4(1.0f);
-        glm::mat4 view = glm::mat4(1.0f);
-        glm::mat4 proj = glm::mat4(1.0f);
-        
-        model = glm::rotate(model, glm::radians(rotation), glm::vec3(1.0f, 1.0f, 1.0f));
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-        proj = glm::perspective(glm::radians(45.0f), (float)(width / height), 0.1f, 100.0f);
-
-        int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        int viewLoc = glGetUniformLocation(shaderProgram.ID, "view");
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-        int projLoc = glGetUniformLocation(shaderProgram.ID, "proj");
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+        camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+        camera.Inputs(window);
 
         // Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
         glUniform1f(uniID, 0.5f);
