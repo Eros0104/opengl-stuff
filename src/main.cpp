@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include "vendors/glad/glad.h"
-#include "vendors/GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 #include "vendors/stb/stb_image.h"
 #include "vendors/glm/glm.hpp"
 #include "vendors/glm/gtc/matrix_transform.hpp"
