@@ -1,7 +1,7 @@
 #ifndef EBO_CLASS_H
 #define EBO_CLASS_H
 
-#include "../vendors/glad/glad.h"
+#include <glad/glad.h>
 
 // EBO stands for Element Buffer Objects
 // It stores indices that OpenGL uses to decide what vertices to draw

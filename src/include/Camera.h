@@ -1,13 +1,13 @@
 #ifndef CAMERA_CLASS_H
 #define CAMERA_CLASS_H
 
-#include "../vendors/glad/glad.h"
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "../vendors/glm/glm.hpp"
-#include "../vendors/glm/gtc/matrix_transform.hpp"
-#include "../vendors/glm/gtc/type_ptr.hpp"
-#include "../vendors/glm/gtx/rotate_vector.hpp"
-#include "../vendors/glm/gtx/vector_angle.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/rotate_vector.hpp>
+#include <glm/gtx/vector_angle.hpp>
 
 #include "shaderClass.h"
 
