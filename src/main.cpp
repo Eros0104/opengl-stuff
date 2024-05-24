@@ -17,42 +17,42 @@ const int width = 800;
 const int height = 600;
 
 GLfloat vertices[] = {
-    // Coordinates          | Colors               | Textures
-    // FRONT FACE      
-    -0.5f, -0.5f,  0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
-    -0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
-     0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
-     0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f, // Lower right corner
-  
-    // BACK FACE      
-    -0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
-    -0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
-     0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
-     0.5f, -0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f, // Lower right corner
-  
-    // LEFT FACE      
-    -0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
-    -0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
-    -0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
-    -0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f, // Lower right corner
-  
-    // RIGHT FACE      
-     0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
-     0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
-     0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
-     0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f, // Lower right corner
-  
-    // TOP FACE      
-    -0.5f,  0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
-    -0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
-     0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
-     0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f, // Lower right corner
-  
-    // BOTTOM FACE      
-    -0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
-    -0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
-     0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
-     0.5f, -0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f  // Lower right corner
+    // Coordinates          | Colors               | Textures       | Normals  
+    // FRONT FACE             
+    -0.5f, -0.5f,  0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f,      0.0f, 0.5f, 0.8f,  // Lower left corner
+    -0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f,      0.0f, 0.5f, 0.8f,  // Upper left corner
+     0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f,      0.0f, 0.5f, 0.8f,  // Upper right corner
+     0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f,      0.0f, 0.5f, 0.8f,  // Lower right corner
+         
+    // BACK FACE             
+    -0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f,      0.0f, 0.5f, -0.8f,  // Lower left corner
+    -0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f,      0.0f, 0.5f, -0.8f,  // Upper left corner
+     0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f,      0.0f, 0.5f, -0.8f,  // Upper right corner
+     0.5f, -0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f,      0.0f, 0.5f, -0.8f,  // Lower right corner
+         
+    // LEFT FACE             
+    -0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f,      -0.8f, 0.5f, 0.0f,  // Lower left corner
+    -0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f,      -0.8f, 0.5f, 0.0f,  // Upper left corner
+    -0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f,      -0.8f, 0.5f, 0.0f,  // Upper right corner
+    -0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f,      -0.8f, 0.5f, 0.0f,  // Lower right corner
+         
+    // RIGHT FACE             
+     0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f,      0.8f, 0.5f, 0.0f,  // Lower left corner
+     0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f,      0.8f, 0.5f, 0.0f,  // Upper left corner
+     0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f,      0.8f, 0.5f, 0.0f,  // Upper right corner
+     0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f,      0.8f, 0.5f, 0.0f,  // Lower right corner
+         
+    // TOP FACE             
+    -0.5f,  0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f,      0.0f, 1.0f, 0.0f,  // Lower left corner
+    -0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f,      0.0f, 1.0f, 0.0f,  // Upper left corner
+     0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f,      0.0f, 1.0f, 0.0f,  // Upper right corner
+     0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f,      0.0f, 1.0f, 0.0f,  // Lower right corner
+         
+    // BOTTOM FACE             
+    -0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f,      0.0f, -1.0f, 0.0f,  // Lower left corner
+    -0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f,      0.0f, -1.0f, 0.0f,  // Upper left corner
+     0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f,      0.0f, -1.0f, 0.0f,  // Upper right corner
+     0.5f, -0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f,      0.0f, -1.0f, 0.0f,  // Lower right corner
 };
 
 // Index buffer data
@@ -154,9 +154,10 @@ int main()
     EBO EBO1(indices, sizeof(indices));
 
     // Links VBO attributes such as coordinates and colors to VAO
-    VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
-    VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
+    VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
+    VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
+    VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
 
     // Unbind all to prevent accidentally modifying them
     VAO1.Unbind();
@@ -201,7 +202,6 @@ int main()
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
 	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-
 
     // Gets ID of uniform called "scale"
     GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
