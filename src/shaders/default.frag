@@ -16,10 +16,13 @@ uniform vec4 lightColor;
 uniform vec3 lightPos;
 
 void main() {
+  // world base light
+  float ambientLight = 0.1f;
+
   vec3 normal = normalize(Normal);
   vec3 lightDirection = normalize(lightPos - crntPos);
 
   float diffuse = max(dot(normal, lightDirection), 0.0f);
 
-  FragColor = texture(tex0, texCoord) * lightColor * diffuse;
+  FragColor = texture(tex0, texCoord) * lightColor * (diffuse + ambientLight);
 }
