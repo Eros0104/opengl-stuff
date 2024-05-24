@@ -16,23 +16,43 @@
 const int width = 800;
 const int height = 600;
 
-// Triangle vertices coordinates
 GLfloat vertices[] = {
-    //    Coordinates    |       Colors          |  TEXTURES    // 
-    // FRONT
-    -0.5f, -0.5f,  0.5f,     0.8f, 0.3f,  0.02f,     0.0f, 0.0f, // Lower left corner
-    -0.5f,  0.5f,  0.5f,     0.0f, 0.6f,   1.0f,     0.0f, 2.0f, // Upper left
-     0.5f,  0.5f,  0.5f,     0.0f, 0.6f,   1.0f,     2.0f, 2.0f, // Upper right
-     0.5f, -0.5f,  0.5f,     0.0f, 0.6f,   1.0f,     2.0f, 0.0f, // Lower right corner
-    // BACK
-    -0.5f, -0.5f, -0.5f,     0.8f, 0.3f,  0.02f,     2.0f, 0.0f, // Lower left corner
-    -0.5f,  0.5f, -0.5f,     0.0f, 0.6f,   1.0f,     2.0f, 2.0f, // Upper left
-     0.5f,  0.5f, -0.5f,     0.0f, 0.6f,   1.0f,     0.0f, 2.0f, // Upper right
-     0.5f, -0.5f, -0.5f,     0.0f, 0.6f,   1.0f,     0.0f, 0.0f, // Lower right corner
-
-    // -0.5f / 2, 0.5f * float(sqrt(3)) / 6,  0.0f,   0.9f, 0.45f, 0.17f,   0.0f, 0.0f, // Inner left
-    //  0.5f / 2, 0.5f * float(sqrt(3)) / 6,  0.0f,   0.0f, 0.6f,   1.0f,   0.0f, 0.0f, // Inner right
-    //  0.0f, -0.5f * float(sqrt(3)) / 3,     0.0f,   0.8f, 0.3f,  0.02f,   0.0f, 0.0f, // Inner down
+    // Coordinates          | Colors               | Textures
+    // FRONT FACE      
+    -0.5f, -0.5f,  0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
+    -0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
+     0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
+     0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f, // Lower right corner
+  
+    // BACK FACE      
+    -0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
+    -0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
+     0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
+     0.5f, -0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f, // Lower right corner
+  
+    // LEFT FACE      
+    -0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
+    -0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
+    -0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
+    -0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f, // Lower right corner
+  
+    // RIGHT FACE      
+     0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
+     0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
+     0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
+     0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f, // Lower right corner
+  
+    // TOP FACE      
+    -0.5f,  0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
+    -0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
+     0.5f,  0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
+     0.5f,  0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f, // Lower right corner
+  
+    // BOTTOM FACE      
+    -0.5f, -0.5f, -0.5f,    0.8f, 0.3f, 0.02f,     0.0f, 0.0f, // Lower left corner
+    -0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      0.0f, 1.0f, // Upper left corner
+     0.5f, -0.5f,  0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 1.0f, // Upper right corner
+     0.5f, -0.5f, -0.5f,    0.0f, 0.6f, 1.0f,      1.0f, 0.0f  // Lower right corner
 };
 
 // Index buffer data
@@ -51,18 +71,19 @@ GLuint indices[] = {
     4, 6, 5,
     4, 7, 6,
     // Left face
-    4, 5, 1,
-    4, 1, 0,
+    8, 9, 10,
+    8, 10, 11,
     // Right face
-    3, 2, 6,
-    3, 6, 7,
+    12, 13, 14,
+    12, 14, 15,
     // Top face
-    1, 5, 6,
-    1, 6, 2,
+    16, 17, 18,
+    16, 18, 19,
     // Bottom face
-    0, 3, 7,
-    0, 7, 4
+    20, 21, 22,
+    20, 22, 23
 };
+
 
 GLfloat lightVertices[] = {
     // Coordinates
